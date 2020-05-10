@@ -1,0 +1,8 @@
+.field i {
+  position: absolute;
+  margin-left: calc(100% - 25px);
+  bottom: 15px;
+  color: #666;
+  cursor: pointer;
+  z-index: 10;
+}

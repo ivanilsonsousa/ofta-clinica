@@ -1,0 +1,13 @@
+.button-default.btn-modal {
+  border-radius: 30px;
+  cursor: pointer;
+  outline: initial !important;
+  width: 70px;
+  height: 35px;
+}
+.button-default.btn-modal::placeholder {
+  background-color: coral;
+}
+.modal-title.h4 {
+  font-size: 20px;
+}
