@@ -1,7 +1,7 @@
-import React from 'react'
-import InputMask from 'react-input-mask';
+import React from "react";
+import InputMask from "react-input-mask";
 
-import './styles.css'
+import "./styles.css";
 
 function Input(props) {
   const { tam, className, mask, maskChar, placeholder, label, onChange, hidden } = props
@@ -22,11 +22,11 @@ function Input(props) {
           <input className="field__input a-field__input" type={props.type || 'text'} onChange={e => {}} placeholder={placeholder} required />}
           {props.info && <i className="fas fa-question-circle" onClick={() => alert(label)} /> }
         <span className="a-field__label-wrap">
-        <span className="a-field__label">{label}</span>
+          <span className="a-field__label">{label}</span>
         </span>
-      </label>  
+      </label>
     </div>
-  )
+  );
 }
 
 export default Input;

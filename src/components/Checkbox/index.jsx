@@ -1,7 +1,7 @@
 import React, { useContext, createContext, useEffect, useState } from 'react'
 import 'pretty-checkbox'
 
-import './styles.css'
+import "./styles.css";
 
 const ContextGroupBox = createContext()
 
@@ -43,7 +43,7 @@ function Checkbox({ label, value, active, onClick }) {
         <label> {label || value}</label>
       </div>
     </div>
-  )
+  );
 }
 
 export default Checkbox;

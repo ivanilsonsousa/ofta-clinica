@@ -24,14 +24,14 @@ function Patient() {
           <Input label="Ocupação" tam="3" placeholder="Sua profissão" />
           <Input label="Idade" tam="2" placeholder="Sua idade" mask="999" />
 
-          <GroupBox tam="3" label="Sexo:" name="sexo" setValue={() => {}} >
+          <GroupBox tam="3" label="Sexo:" name="sexo" setValue={() => { }} >
             <Checkbox value="M" />
             <Checkbox value="F" />
           </GroupBox>
-          
+
           <div className="form-row d-flex align-items-center">
-            <Button text="Inserir" className="controls mr-2" onClick={() => alert(cpf)}/>
-            <Button text="Pesquisar" className="controls cancel" cancel onClick={() => {}}/>
+            <Button text="Inserir" className="controls mr-2" onClick={() => alert(cpf)} />
+            <Button text="Pesquisar" className="controls cancel" cancel onClick={() => { }} />
           </div>
         </div>
 

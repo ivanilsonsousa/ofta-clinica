@@ -29,9 +29,9 @@ function Login() {
             <div className="mt-2">
               <Input label="Seu email" placeholder="Seu email" className="px-0" />
             </div>
-            <Button text="Recuperar a senha" className="btn-login mb-2" onClick={() => handleLogin()}/>
+            <Button text="Recuperar a senha" className="btn-login mb-2" onClick={() => handleLogin()} />
             <div className="content-forgotpass">
-            <Link to="/"><i className="fas fa-arrow-left mr-1" /> Voltar</Link>
+              <Link to="/"><i className="fas fa-arrow-left mr-1" /> Voltar</Link>
             </div>
           </div>
         </div>

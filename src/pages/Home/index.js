@@ -3,7 +3,7 @@ import Input from '../../components/Input';
 import Header from '../../components/Header';
 import Section from '../../components/Section';
 import Button from '../../components/Button';
-import Checkbox, {GroupBox} from '../../components/Checkbox';
+import Checkbox, { GroupBox } from '../../components/Checkbox';
 import Option, { ContainerOption } from '../../components/Option';
 
 import './styles.css';
@@ -26,12 +26,12 @@ function Home() {
         </div>
 
         <Section title="Identificação" />
-        
+
         <div className="bg-light p-2 mb-3 d-flex justify-content-between align-items-center">
           <span>Controle n° 0001</span>
           <span className="ml-5">Data {new Date().toLocaleDateString()}</span>
         </div>
-        
+
         <div className="form-row px-4 mb-2">
           <Input label="CPF" tam="3" placeholder="Teste" mask="999.999.999-99" info />
           <Input label="Nome" tam="6" placeholder="Seu nome" info />
@@ -44,14 +44,14 @@ function Home() {
             <Checkbox value="M"/>
             <Checkbox value="F" />
           </GroupBox>
-          
-          <GroupBox tam="5" label="Visita" name="visita" setValue={() => {}} >
+
+          <GroupBox tam="5" label="Visita" name="visita" setValue={() => { }} >
             <Checkbox label="1 vez" value="1VEZ" />
             <Checkbox label="-1 ano" value="-1ANO" />
             <Checkbox label="2 anos" value="2ANOS" />
             <Checkbox label="Outros" value="OUTROS" active={setHide} />
           </GroupBox>
-          
+
           <Input placeholder="Outra visita" tam="7" hidden={hide} />
         </div>
 
@@ -78,7 +78,7 @@ function Home() {
             <Input placeholder="Outra motivos de consulta" hidden={hide2} />
           </ContainerOption>
         </div>
-        
+
         <Section title="Antecedentes Pessoais" />
         <div className="container">
           <ContainerOption className="mb-0 pb-0" >
@@ -91,7 +91,7 @@ function Home() {
             <Option text="Traumas" value="traumas" />
             <Option text="Gravidez de risco" value="gravidez-de-risco" />
           </ContainerOption>
-        
+
           <div className="form-row px-4">
               <GroupBox tam="4" label="Usa algum medicamento?" name="medicamento" setValue={() => {}} >
                 <Checkbox value="Sim" active={setHide3} />
@@ -126,12 +126,12 @@ function Home() {
           </ContainerOption>
 
           <div className="form-row px-4">
-            <GroupBox tam="4" label="Usa óculos?" name="oculos" setValue={() => {}} >
+            <GroupBox tam="4" label="Usa óculos?" name="oculos" setValue={() => { }} >
               <Checkbox value="Sim" />
               <Checkbox value="Não" />
             </GroupBox>
 
-            <GroupBox tam="5" name="oculos" setValue={() => {}} >
+            <GroupBox tam="5" name="oculos" setValue={() => { }} >
               <Checkbox value="Bifocal" />
               <Checkbox value="VS" />
               <Checkbox value="Progressiva" />
@@ -141,66 +141,66 @@ function Home() {
 
         </div>
 
-        <hr/>
+        <hr />
 
         <div className="form-row px-4">
-          <GroupBox tam="4" label="Hirschberg:" name="oculos" setValue={() => {}} >
+          <GroupBox tam="4" label="Hirschberg:" name="oculos" setValue={() => { }} >
             <Checkbox value="Centrado" />
             <Checkbox value="Descentrado" />
           </GroupBox>
 
-          <GroupBox tam="5" name="oculos" setValue={() => {}} >
+          <GroupBox tam="5" name="oculos" setValue={() => { }} >
             <Checkbox value="7°" />
             <Checkbox value="15°" />
             <Checkbox value="35°" />
             <Checkbox value="45" />
           </GroupBox>
         </div>
-        
+
         <div className="form-row px-4">
-          <GroupBox tam="4" label="Kappa:" name="oculos" setValue={() => {}} >
+          <GroupBox tam="4" label="Kappa:" name="oculos" setValue={() => { }} >
             <Checkbox value="OD" />
             <Checkbox value="OE" />
           </GroupBox>
 
-          <GroupBox tam="5" name="oculos" setValue={() => {}} >
+          <GroupBox tam="5" name="oculos" setValue={() => { }} >
             <Checkbox value="+Nasal" />
             <Checkbox value="-Temporal" />
             <Checkbox value="0zero" />
           </GroupBox>
         </div>
-        
+
         <div className="form-row px-4">
-          <GroupBox tam="4" label="Hirschberg:" name="oculos" setValue={() => {}} >
+          <GroupBox tam="4" label="Hirschberg:" name="oculos" setValue={() => { }} >
             <Checkbox value="Centrado" />
             <Checkbox value="Descentrado" />
           </GroupBox>
 
-          <GroupBox tam="5" name="oculos" setValue={() => {}} >
+          <GroupBox tam="5" name="oculos" setValue={() => { }} >
             <Checkbox value="7°" />
             <Checkbox value="15°" />
             <Checkbox value="35°" />
             <Checkbox value="45" />
           </GroupBox>
         </div>
-        
+
         <div className="form-row px-4">
           <div className="col-2 d-flex align-items-center">
             <span className="mb-2">Ducções: </span>
-          </div> 
-          <GroupBox tam="2" name="oculos" setValue={() => {}} >
+          </div>
+          <GroupBox tam="2" name="oculos" setValue={() => { }} >
             <Checkbox label="MSC (OD)" value="MSC (OD)" />
           </GroupBox>
           <Input tam="3" placeholder="Sim, quais?" active />
 
-          <GroupBox tam="2" name="oculos" setValue={() => {}} >
+          <GroupBox tam="2" name="oculos" setValue={() => { }} >
             <Checkbox label="MSC (OE)" value="MSC (OE)" />
           </GroupBox>
 
           <Input tam="3" placeholder="Sim, quais?" active />
         </div>
 
-        <GroupBox className="ml-2" tam="4" label="Exames pupilares: " name="oculos" setValue={() => {}} >
+        <GroupBox className="ml-2" tam="4" label="Exames pupilares: " name="oculos" setValue={() => { }} >
           <Checkbox value="Presente" />
           <Checkbox value="Ausente" />
         </GroupBox>
@@ -208,8 +208,8 @@ function Home() {
         <div className="form-row px-4">
           <div className="col-2 d-flex align-items-center">
             <span className="mb-2">Oftamoscopia: </span>
-          </div> 
-          <GroupBox tam="3" name="oculos" setValue={() => {}} >
+          </div>
+          <GroupBox tam="3" name="oculos" setValue={() => { }} >
             <Checkbox label="Normal" value="Normal" />
             <Checkbox label="Alterado" value="Alerado" />
           </GroupBox>
@@ -219,13 +219,13 @@ function Home() {
         <div className="form-row px-4">
           <div className="col-2 d-flex align-items-center">
             <span className="mb-2">Ceratrometria: </span>
-          </div> 
-          <GroupBox tam="1" name="oculos" setValue={() => {}} >
+          </div>
+          <GroupBox tam="1" name="oculos" setValue={() => { }} >
             <Checkbox label="(OD)" value="(OD)" />
           </GroupBox>
           <Input tam="4" placeholder="Descreva" active />
 
-          <GroupBox tam="1" name="oculos" setValue={() => {}} >
+          <GroupBox tam="1" name="oculos" setValue={() => { }} >
             <Checkbox label="(OE)" value="(OE)" />
           </GroupBox>
 
@@ -235,13 +235,13 @@ function Home() {
         <div className="form-row px-4">
           <div className="col-2 d-flex align-items-center">
             <span className="mb-2">R. Estatistica: </span>
-          </div> 
-          <GroupBox tam="1" name="oculos" setValue={() => {}} >
+          </div>
+          <GroupBox tam="1" name="oculos" setValue={() => { }} >
             <Checkbox label="(OD)" value="(OD)" />
           </GroupBox>
           <Input tam="4" placeholder="Descreva" active />
 
-          <GroupBox tam="1" name="oculos" setValue={() => {}} >
+          <GroupBox tam="1" name="oculos" setValue={() => { }} >
             <Checkbox label="(OE)" value="(OE)" />
           </GroupBox>
 
@@ -251,13 +251,13 @@ function Home() {
         <div className="form-row px-4">
           <div className="col-2 d-flex align-items-center">
             <span className="mb-2">E. Dinâmica: </span>
-          </div> 
-          <GroupBox tam="1" name="oculos" setValue={() => {}} >
+          </div>
+          <GroupBox tam="1" name="oculos" setValue={() => { }} >
             <Checkbox label="(OD)" value="(OD)" />
           </GroupBox>
           <Input tam="4" placeholder="Descreva" active />
 
-          <GroupBox tam="1" name="oculos" setValue={() => {}} >
+          <GroupBox tam="1" name="oculos" setValue={() => { }} >
             <Checkbox label="(OE)" value="(OE)" />
           </GroupBox>
 
