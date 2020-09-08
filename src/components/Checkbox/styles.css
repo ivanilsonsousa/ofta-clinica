@@ -1,0 +1,5 @@
+.pretty input:focus:not(:checked)~.state.p-primary-o label:before {
+  box-shadow: 0 0 3px 1px rgb(66, 139, 202, 1);
+  border-color: #428bca;
+  transition: 0.4s box-shadow;
+}

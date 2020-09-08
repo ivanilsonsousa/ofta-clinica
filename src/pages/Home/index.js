@@ -14,6 +14,8 @@ function Home() {
   const [hide, setHide] = useState(true)
   const [hide2, setHide2] = useState(true)
   const [hide3, setHide3] = useState(true)
+  const [hide4, setHide4] = useState(true)
+  const [check, setCheck] = useState('')
 
   return (
     <>
@@ -21,7 +23,6 @@ function Home() {
       <div className="container pt-5 content-form">
         <div className="row d-flex justify-content-between align-items-baseline mb-4">
           <h4 className="text-uppercase">Exame Optométrico</h4>
-          {/* <img src={logo} style={{ height: "150px" }} alt="logo" /> */}
         </div>
 
         <Section title="Identificação" />
@@ -39,8 +40,8 @@ function Home() {
           <Input label="Idade" tam="3" placeholder="Sua idade" mask="999" />
           <Input label="Local" tam="4" placeholder="Seu local" />
           
-          <GroupBox tam="2" label="Sexo:" name="sexo" setValue={() => {}} >
-            <Checkbox value="M" />
+          <GroupBox tam="2" label="Sexo:" name="sexo" setValue={setCheck} value={check} >
+            <Checkbox value="M"/>
             <Checkbox value="F" />
           </GroupBox>
           
@@ -92,20 +93,22 @@ function Home() {
           </ContainerOption>
         
           <div className="form-row px-4">
-            <GroupBox tam="4" label="Usa algum medicamento?" name="medicamento" setValue={() => {}} >
-              <Checkbox value="Sim" />
-              <Checkbox value="Não" />
-            </GroupBox>
-
-            <Input tam="8" placeholder="Sim, quais?" active />
-            
-            <GroupBox tam="4" label="Já fez alguma cirurgia?" name="cirurgia" setValue={() => {}} >
-              <Checkbox value="Sim" />
-              <Checkbox value="Não" />
-            </GroupBox>
-
-            <Input tam="8" placeholder="Sim, quais?" active />
+              <GroupBox tam="4" label="Usa algum medicamento?" name="medicamento" setValue={() => {}} >
+                <Checkbox value="Sim" active={setHide3} />
+                <Checkbox value="Não" />
+              </GroupBox>
+              
+              <Input tam="8" placeholder="Sim, quais?" hidden={hide3} />
           </div>
+            
+          <div className="form-row px-4">
+            <GroupBox tam="4" label="Já fez alguma cirurgia?" name="cirurgia" setValue={() => {}} >
+              <Checkbox value="Sim" active={setHide4} />
+              <Checkbox value="Não" />
+            </GroupBox>
+
+            <Input tam="8" placeholder="Sim, quais?" hidden={hide4} />
+          </div> 
         </div>
 
         <Section title="Antecedentes Familiares" />
@@ -260,10 +263,6 @@ function Home() {
 
           <Input tam="4" placeholder="Descreva" active />
         </div>
-
-       
-
-        
 
         <hr/>
 
