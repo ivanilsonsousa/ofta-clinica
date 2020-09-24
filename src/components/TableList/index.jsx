@@ -1,23 +1,46 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
-import Modal from "../Modal";
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useCallback,
+} from "react";
 
 import "./styles.css";
 
 const TableContext = createContext();
+const OptionsContext = createContext();
 
 function TableList(props) {
   const [index, setIndex] = useState(1);
   const [rows, setRows] = useState([]);
 
-  const { data, range } = props;
+  const {
+    data,
+    rangeTable,
+    config,
+    rangeFooter,
+    options,
+    onDoubleClick,
+  } = props;
 
-  const getRange = () => (range ? range : 10);
+  const getIndexData = useCallback(
+    (i) => {
+      if (data) return data[i];
+    },
+    [data]
+  );
 
-  const pages = Math.ceil(data.length / getRange());
+  const getRange = useCallback(() => (rangeTable ? rangeTable : 10), [
+    rangeTable,
+  ]);
 
-  const getMax = () => (index === pages ? data.length : index * getRange());
+  const pages = Math.ceil(data?.length / getRange());
 
-  const getIndexData = (i) => data[i];
+  const getMax = useCallback(
+    () => (index === pages ? data?.length : index * getRange()),
+    [index, pages, data?.length, getRange]
+  );
 
   useEffect(() => {
     setRows([]);
@@ -25,63 +48,54 @@ function TableList(props) {
     for (let i = index * getRange() - getRange(); i < getMax(); i++) {
       setRows((oldElemets) => [...oldElemets, getIndexData(i)]);
     }
-  }, [index]); // eslint-disable-line
+  }, [index, getRange, getMax, getIndexData]);
+
+  if (!rows) return <></>;
 
   return (
     <>
-      <table className="container-fluid table-list">
-        <thead>
-          <tr>
-            <th>CPF</th>
-            <th>Nome</th>
-            <th>Telefone</th>
-            <th>Ocupação</th>
-            <th>Idade</th>
-            <th>Sexo</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows?.map((el, index) => (
-            <TableRow key={index} patient={el} />
-          ))}
-        </tbody>
-      </table>
-      <TableContext.Provider value={{ index, setIndex }}>
-        <TableFooter length={pages} range={10} funcD={setIndex} />
+      <TableContext.Provider
+        value={{ index, setIndex, config, options, onDoubleClick }}
+      >
+        <table className="container-fluid table-list">
+          <thead>
+            <tr>
+              {config?.map((el, index) => (
+                <th key={index}>{el.title}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows?.map((el, index) => (
+              <TableRow key={index} register={el} />
+            ))}
+          </tbody>
+        </table>
+        <TableFooter length={pages} range={rangeFooter} />
       </TableContext.Provider>
     </>
   );
 }
 
 function TableRow(props) {
-  const { patient } = props;
-  const [modalDelete, setModalDelete] = useState(false);
+  const { register } = props;
+  const { config, options, onDoubleClick } = useContext(TableContext);
+
+  if (!register) return <></>;
 
   return (
-    <tr>
-      <td>{patient.cpf}</td>
-      <td>{patient.name}</td>
-      <td>{patient.phone}</td>
-      <td>{patient.work}</td>
-      <td>{patient.age}</td>
-      <td>{patient.gender}</td>
-      <td className="table-actions">
-        <i className="far fa-file-pdf mr-2" title="Gerar PDF" />
-        <i className="fas fa-history mr-2" title="Ver histórico do paciente" />
-        <i className="fas fa-pencil-alt mr-2" title="Editar registro" />
-        <i
-          className="fas fa-trash-alt"
-          onClick={() => setModalDelete(true)}
-          title="Apagar registro"
-        />
-      </td>
-      <Modal
-        title="Deseja realmente apagar esse registro?"
-        show={modalDelete}
-        onDisable={setModalDelete}
-        func={() => console.log(patient)}
-      />
+    <tr
+      onDoubleClick={onDoubleClick ? () => onDoubleClick(register) : () => {}}
+    >
+      {config?.map((el, index) => {
+        return el?.flag === "__actions__" ? (
+          <OptionsContext.Provider value={{ register }} key={index}>
+            {options}
+          </OptionsContext.Provider>
+        ) : (
+          <td key={index}>{register[el?.flag]}</td>
+        );
+      })}
     </tr>
   );
 }
@@ -100,8 +114,15 @@ function TableFooter(props) {
 
   const pages = Math.ceil(length / range);
 
+  const getMax = useCallback(() => (pages === gap ? length : range * gap), [
+    pages,
+    gap,
+    length,
+    range,
+  ]);
+
   useEffect(() => {
-    let max = pages === gap ? length : range * gap;
+    let max = getMax();
 
     if (max === length) setRight(false);
 
@@ -111,6 +132,7 @@ function TableFooter(props) {
         ...oldElemets,
         <li
           key={i}
+          title={`Ir para a página ${i}`}
           className={i === index ? "active" : ""}
           onClick={() => setIndex(i)}
         >
@@ -118,9 +140,9 @@ function TableFooter(props) {
         </li>,
       ]);
     }
-  }, [gap, index]); // eslint-disable-line
+  }, [gap, range, index, length, getMax, setIndex]);
 
-  function hanleLeft() {
+  function handleLeft() {
     if (pages === gap) {
       setRight(true);
     }
@@ -133,7 +155,7 @@ function TableFooter(props) {
     }
   }
 
-  function hanleRight() {
+  function handleRight() {
     setGap(gap + 1);
 
     if (gap >= 1) {
@@ -145,17 +167,34 @@ function TableFooter(props) {
     <div className="table-footer no-touch">
       <i
         className="fas fa-angle-left mr-2"
-        onClick={() => hanleLeft()}
+        onClick={() => handleLeft()}
         hidden={!left}
       />
       {items}
       <i
         className="fas fa-angle-right ml-2"
-        onClick={() => hanleRight()}
+        onClick={() => handleRight()}
         hidden={!right}
       />
     </div>
   );
 }
 
+const TableOptions = (props) => (
+  <td className="table-actions">{props.children}</td>
+);
+
+const TableIcon = ({ icon, title, onClick }) => {
+  const { register } = useContext(OptionsContext);
+  return (
+    <i
+      className={`${icon} mr-2`}
+      title={title}
+      onClick={onClick ? () => onClick(register) : () => {}}
+    />
+  );
+};
+
 export default TableList;
+
+export { TableList, TableOptions, TableIcon };
