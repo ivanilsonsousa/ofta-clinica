@@ -6,3 +6,6 @@
   cursor: pointer;
   z-index: 10;
 }
+.field__input.a-field__input:disabled {
+  border-bottom-color: red;
+}

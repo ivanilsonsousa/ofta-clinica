@@ -5,13 +5,17 @@ import Section from "../../components/Section";
 import Button from "../../components/Button";
 import { TableList, TableOptions, TableIcon } from "../../components/TableList";
 import Checkbox, { GroupBox } from "../../components/Checkbox";
+import Modal from "../../components/Modal";
+import Select from "../../components/Select";
 
 import api from "../../services/api";
 import pacient_icon from "../../assets/patient.svg";
 
 function Patient() {
   const [dataTable, setDataTable] = useState(null);
+  const [modalDelete, setModalDelete] = useState(false);
   const [patient, sePatient] = useState({});
+  const [patientEditOptions, setPatientEditOptions] = useState({});
   const [query, setQuery] = useState("");
   const [update, setUpdate] = useState([]);
 
@@ -54,6 +58,28 @@ function Patient() {
       });
   }
 
+  function handleDeletePatiet() {
+    api
+      .delete(`/patient/${patientEditOptions.id}`, {
+        headers: { Authorization: "token()" },
+      })
+      .then((res) => {
+        setUpdate(res.data);
+        setModalDelete(false);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setModalDelete(false);
+      });
+  }
+
+  function handleConfirmDelete(patient) {
+    console.log(patient);
+    setPatientEditOptions(patient);
+    setModalDelete(true);
+  }
+
   const tableOptions = (
     <TableOptions>
       <TableIcon
@@ -74,7 +100,7 @@ function Patient() {
       <TableIcon
         icon="fas fa-trash-alt"
         title="Apagar registro"
-        onClick={(e) => console.log(e)}
+        onClick={(e) => handleConfirmDelete(e)}
       />
     </TableOptions>
   );
@@ -128,7 +154,13 @@ function Patient() {
             onChange={(e) => sePatient({ ...patient, age: e.target.value })}
           />
 
-          <GroupBox tam="3" label="Sexo:" name="sexo" setValue={() => {}}>
+          <GroupBox
+            tam="3"
+            label="Sexo:"
+            name="sexo"
+            onChange={(e) => sePatient({ ...patient, gender: e.target.value })}
+            setValue={() => {}}
+          >
             <Checkbox value="M" />
             <Checkbox value="F" />
           </GroupBox>
@@ -155,6 +187,13 @@ function Patient() {
           onDoubleClick={(e) => console.log(e)}
         />
       </div>
+
+      <Modal
+        title={"Você tem certeza que deseja excluir permanentemete o usuário?"}
+        show={modalDelete}
+        onDisable={setModalDelete}
+        confirm={handleDeletePatiet}
+      />
     </>
   );
 }

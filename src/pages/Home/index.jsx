@@ -39,6 +39,7 @@ function Home() {
             placeholder="Teste"
             mask="999.999.999-99"
             info
+            disabled
           />
           <Input label="Nome" tam="6" placeholder="Seu nome" info />
           <Input

@@ -11,11 +11,14 @@
   background: var(--color-default);
   height: 56px;
 }
-.getout > a,
-.getout > a:hover {
+.getout > button {
   cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
   color: white;
 }
+
 .navbar span {
   color: white;
 }

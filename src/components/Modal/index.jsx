@@ -37,7 +37,7 @@ export default function AlertModal(props) {
           {props.message || (
             <button
               className="button-default confirm btn-modal"
-              onClick={() => props.func()}
+              onClick={() => props.confirm()}
             >
               Sim
             </button>

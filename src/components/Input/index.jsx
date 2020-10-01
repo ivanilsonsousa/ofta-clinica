@@ -23,17 +23,15 @@ function Input(props) {
             className="field__input a-field__input"
             mask={mask}
             maskChar={maskChar || " "}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => (onChange ? onChange(e) : {})}
             placeholder={placeholder}
-            required
           />
         ) : (
           <input
             className="field__input a-field__input"
             type={props.type || "text"}
-            onChange={(e) => onChange(e)}
+            onChange={(e) => (onChange ? onChange(e) : {})}
             placeholder={placeholder}
-            required
           />
         )}
         {props.info && (

@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 
-import "./styles.css";
+import { Context } from "../../Context/AuthContext";
 
 import logo from "../../assets/logo-login.png";
+import "./styles.css";
 
 function Login() {
-  const history = useHistory();
+  const { handleLogin } = useContext(Context);
+  const [user, setUser] = useState("");
+  const [password, setPass] = useState("");
 
-  function handleLogin() {
-    history.push("/home");
+  async function handleSubmitLogin(e) {
+    e.preventDefault();
+
+    console.log(user, password);
+    console.log("aqui");
+    if (!user) return;
+
+    const login = await handleLogin({ user, password });
+    console.log("aqui fim");
   }
 
   return (
@@ -30,29 +40,31 @@ function Login() {
           </div>
           <div className="box-right">
             <h4 className="text-center">Faça seu login aqui</h4>
-            <div>
-              <Input
-                label="Usuário"
-                placeholder="Seu usuário"
-                className="px-0"
-              />
-            </div>
-            <div>
-              <Input
-                label="Senha"
-                type="password"
-                placeholder="Sua senha"
-                className="px-0"
-              />
-            </div>
-            <Button
-              text="Confirmar"
-              className="btn-login mb-2"
-              onClick={() => handleLogin()}
-            />
+            <form onSubmit={handleSubmitLogin}>
+              <div>
+                <Input
+                  label="Usuário"
+                  placeholder="Seu usuário"
+                  className="px-0"
+                  onChange={(e) => setUser(e.target.value)}
+                />
+              </div>
+              <div>
+                <Input
+                  label="Senha"
+                  type="password"
+                  placeholder="Sua senha"
+                  className="px-0"
+                  onChange={(e) => setPass(e.target.value)}
+                />
+              </div>
+              <Button text="Confirmar" className="btn-login mb-2" />
+            </form>
             <div className="content-forgotpass">
               <span className="forgot-password">
-                <Link to="/forgot-pass">Esqueceu a senha? clique aqui</Link>
+                <Link to="/begin_password_reset">
+                  Esqueceu a senha? clique aqui
+                </Link>
               </span>
             </div>
           </div>

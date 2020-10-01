@@ -8,7 +8,7 @@ function RouteWrapper({
 }) {
   const { loading, authenticated } = useContext(Context);
 
-  if (loading && isPrivate) {
+  if (loading && (isPrivate || authTo)) {
     return <span>Loading...</span>;
   }
 
