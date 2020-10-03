@@ -1,10 +1,11 @@
 .msg-forgot {
-  background-color: DarkSalmon;
+  background-color: #cf0000;
   padding: 10px;
   color: white;
   border-radius: 20px;
   margin-top: 10px;
   display: flex;
+  /* justify-content: space-between; */
 }
 .btn-close-msg {
   display: flex;

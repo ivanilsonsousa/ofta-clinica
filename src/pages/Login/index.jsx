@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 
@@ -12,16 +12,16 @@ function Login() {
   const { handleLogin } = useContext(Context);
   const [user, setUser] = useState("");
   const [password, setPass] = useState("");
+  const [load, setLoad] = useState(false);
 
   async function handleSubmitLogin(e) {
     e.preventDefault();
 
-    console.log(user, password);
-    console.log("aqui");
-    if (!user) return;
+    if (!user || !password) return;
+    setLoad(true);
 
-    const login = await handleLogin({ user, password });
-    console.log("aqui fim");
+    await handleLogin({ user, password });
+    setLoad(false);
   }
 
   return (
@@ -58,7 +58,7 @@ function Login() {
                   onChange={(e) => setPass(e.target.value)}
                 />
               </div>
-              <Button text="Confirmar" className="btn-login mb-2" />
+              <Button load={load} text="Confirmar" className="btn-login mb-2" />
             </form>
             <div className="content-forgotpass">
               <span className="forgot-password">

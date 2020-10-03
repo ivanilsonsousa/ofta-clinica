@@ -4,6 +4,9 @@
   outline: none !important;
   width: 140px;
   height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .button-default.confirm {
   border: 2px solid #4e98a1;
@@ -21,11 +24,16 @@
   background-color: #4e98a1;
 }
 .button-default.cancel {
-  border: 2px solid rgba(139, 139, 139, .3);
-  background-color: rgba(255, 255, 255, .9);
+  border: 2px solid rgba(139, 139, 139, 0.3);
+  background-color: rgba(255, 255, 255, 0.9);
   color: #adadad;
 }
 .button-default.cancel:hover {
   color: #aaaa;
   border-color: #ccc;
+}
+.button-default.load,
+.button-default.load:hover {
+  cursor: not-allowed;
+  opacity: 0.7;
 }

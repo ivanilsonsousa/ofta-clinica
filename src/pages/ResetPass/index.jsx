@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import Notification from "../../components/Notification";
 
 import "./styles.css";
 
@@ -10,9 +11,12 @@ import btn_close from "../../assets/cancel.svg";
 import api from "../../services/api";
 
 function Login() {
+  const [not, setNot] = useState({});
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
+  const [load, setLoad] = useState(false);
+  const [close, setClose] = useState(true);
   const [message, setMessage] = useState(
     "E-mail não cadastrado na base de dados"
   );
@@ -28,23 +32,37 @@ function Login() {
   }, []);
 
   function handleResetPass() {
+    if (!email || !pass || !passConfirm || load) return;
+
     api
       .post("/reset-pass", { pass, passConfirm, email })
       .then((response) => {
+        setLoad(false);
         const { code } = response.data;
         console.log(response.data);
-        setMessage(response.data.msg);
 
         if (code !== 200) {
-          // setMessage(response.data.msg);
-          // setClose(false);
+          setNot({
+            description: response.data.msg,
+            type: response.data.type,
+            open: true,
+          });
+
+          setLoad(false);
         } else {
-          history.push("/");
+          history.push({
+            pathname: "/",
+            state: { email },
+          });
         }
       })
       .catch((err) => {
         console.error(err);
       });
+  }
+
+  function handleClose() {
+    setClose(true);
   }
 
   return (
@@ -86,18 +104,38 @@ function Login() {
               />
             </div>
             <Button
-              text="Recuperar a senha"
+              load={load}
+              text="Redefinir senha"
               className="btn-login mb-2"
               onClick={handleResetPass}
             />
             <div className="content-forgotpass">
-              <Link to="/">
+              <Link to="" onClick={() => history.goBack()}>
                 <i className="fas fa-arrow-left mr-1" /> Voltar
               </Link>
             </div>
+            {!close && (
+              <div className="msg-forgot">
+                {message}
+                <div className="btn-close-msg">
+                  <img
+                    src={btn_close}
+                    onClick={() => handleClose()}
+                    style={{ height: "10px" }}
+                    alt="logo"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
+      <Notification
+        description={not.description}
+        type={not.type}
+        open={not.open}
+        exit={setNot}
+      />
     </>
   );
 }

@@ -7,13 +7,8 @@ import logo from "../../assets/optometrista.svg";
 import { Context } from "../../Context/AuthContext";
 
 function Header(props) {
-  const { authenticated, handleLogout } = useContext(Context);
+  const { handleLogout } = useContext(Context);
   const [modalLogout, setModalLogout] = useState(false);
-
-  function logout() {
-    handleLogout();
-    setModalLogout(false);
-  }
 
   return (
     <>

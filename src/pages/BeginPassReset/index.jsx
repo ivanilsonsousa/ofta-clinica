@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import Notification from "../../components/Notification";
 
 import "./styles.css";
 
@@ -11,26 +12,28 @@ import api from "../../services/api";
 
 function Login() {
   const [email, setEmail] = useState("");
-  const [close, setClose] = useState(true);
-  const [message, setMessage] = useState(
-    "E-mail não cadastrado na base de dados"
-  );
-
+  const [not, setNot] = useState({});
+  const [load, setLoad] = useState(false);
   const history = useHistory();
 
   function handleForgotPass(e) {
     e.preventDefault();
+    if (!email || load) return;
+    setLoad(true);
 
     api
       .post("/begin-pass-reset", { email })
       .then((response) => {
         const { code, email } = response.data;
 
-        console.log(code, email);
-
         if (code !== 200) {
-          setMessage(response.data.msg);
-          setClose(false);
+          setNot({
+            description: response.data.msg,
+            type: response.data.type,
+            open: true,
+          });
+
+          setLoad(false);
         } else {
           history.push({
             pathname: "/confirm_pin_reset",
@@ -41,10 +44,6 @@ function Login() {
       .catch((err) => {
         console.error(err);
       });
-  }
-
-  function handleClose() {
-    setClose(true);
   }
 
   return (
@@ -75,29 +74,26 @@ function Login() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <Button text="Recuperar a senha" className="btn-login mb-2" />
+              <Button
+                load={load}
+                text="Recuperar a senha"
+                className="btn-login mb-2"
+              />
             </form>
             <div className="content-forgotpass">
-              <Link to="/">
+              <Link to="" onClick={() => history.goBack()}>
                 <i className="fas fa-arrow-left mr-1" /> Voltar
               </Link>
             </div>
-            {!close && (
-              <div className="msg-forgot">
-                {message}
-                <div className="btn-close-msg">
-                  <img
-                    src={btn_close}
-                    onClick={() => handleClose()}
-                    style={{ height: "10px" }}
-                    alt="logo"
-                  />
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>
+      <Notification
+        description={not.description}
+        type={not.type}
+        open={not.open}
+        exit={setNot}
+      />
     </>
   );
 }

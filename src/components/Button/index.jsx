@@ -1,16 +1,21 @@
 import React from "react";
+import { ClipLoader as Spinner } from "react-spinners";
 
 import "./styles.css";
 
-function Button(props) {
+function Button({ cancel, className, onClick, text, load }) {
   return (
     <button
-      className={`button-default ${props.cancel ? "cancel" : "confirm"}  ${
-        props.className
-      }`}
-      onClick={() => (props.onClick ? props.onClick() : {})}
+      className={`button-default ${
+        cancel ? "cancel" : "confirm"
+      }  ${className} ${load && "load"}`}
+      onClick={() => (onClick ? onClick() : {})}
+      disabled={load}
     >
-      {props.text ? props.text : "Ok"}
+      {text ? text : "Ok"}{" "}
+      {load && (
+        <Spinner sizeUnit="px" css="margin-left: 5px" size={15} color="#fff" />
+      )}
     </button>
   );
 }
