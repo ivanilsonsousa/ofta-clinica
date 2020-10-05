@@ -25,13 +25,11 @@ export default function useAuth() {
   async function handleLogin(login) {
 
     try {
-      console.log("mao")
       const { data } = await api.post('/login', login);
-      console.log(data)
       const token = data.token;
 
       if (!token)
-        return { message: data.message };
+        return data;
 
       localStorage.setItem('token', token);
       api.defaults.headers.Authorization = `Bearer ${token}`;

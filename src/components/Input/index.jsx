@@ -16,7 +16,7 @@ function Input(props) {
   } = props;
 
   return (
-    <div className={`col-md-${tam || "12"} mb-3 ${className}`} hidden={hidden}>
+    <div className={`col-sm-${tam || "12"} ${className}`} hidden={hidden}>
       <label className="field a-field a-field_a2">
         {mask ? (
           <InputMask

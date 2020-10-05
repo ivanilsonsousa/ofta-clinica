@@ -1,0 +1,32 @@
+.navbar-custom {
+  background: var(--color-default);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar-custom.collapsed {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.navbar-custom button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+}
+.navbar-custom span {
+  color: white;
+}
+.nav-link {
+  color: #444;
+}
+.nav-link:hover {
+  color: #333;
+}
+.navbar-custom button i.rotate {
+  transform: rotate(360deg);
+  transition: 0.5s transform;
+}

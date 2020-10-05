@@ -6,36 +6,30 @@ import logo from "../../assets/optometrista.svg";
 
 import { Context } from "../../Context/AuthContext";
 
+import "./styles.css";
+
 function Header(props) {
-  const { handleLogout } = useContext(Context);
+  const { handleLogout, sideBar, setSideBar } = useContext(Context);
   const [modalLogout, setModalLogout] = useState(false);
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg py-0">
+      <nav className={`navbar-custom ${sideBar ? "collapsed" : ""} px-2`}>
+        <button onClick={() => setSideBar(!sideBar)}>
+          <i
+            className={`fas ${
+              !sideBar ? "fa-align-left" : "fa-arrow-right rotate"
+            }`}
+          ></i>
+          {/* <i class="fas fa-arrow-left"></i> */}
+        </button>
         <Link to="/home" className="nav-link">
-          <img src={logo} style={{ height: "40px" }} alt="logo" />
-          <span className="ml-3"> MEU CONSULTÓRIO</span>
+          <img src={logo} style={{ height: "35px" }} alt="logo" />
         </Link>
 
-        <div className="collapse navbar-collapse" id="navbarText">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <Link to="/patient" className="nav-link">
-                Pacientes <span className="sr-only">(current)</span>
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/home" className="nav-link">
-                Exame Optométrico
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className="getout mr-5">
-          <button onClick={() => setModalLogout(true)}>
-            Sair <i className="fas fa-sign-out-alt text-light ml-1" />
+        <div className={`getout ${sideBar ? "ml-auto" : ""}`}>
+          <button onClick={() => setModalLogout(true)} title="Sair">
+            <i className="fas fa-sign-out-alt text-light ml-1" />
           </button>
         </div>
       </nav>

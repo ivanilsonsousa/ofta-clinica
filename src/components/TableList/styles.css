@@ -3,16 +3,17 @@ table {
   border-radius: 5px;
   border-color: #9e9e9e;
   overflow: scroll;
+  font-size: 1rem;
 }
 .table-list > thead > tr {
-  height: 50px;
+  height: 35px;
   border-bottom: 1px solid rgba(224, 224, 224, 1);
 }
 .table-list > thead > tr > th {
   text-align: center;
 }
 .table-list > tbody > tr {
-  height: 45px;
+  height: 35px;
 }
 .table-list > tbody > tr > td {
   text-align: center;

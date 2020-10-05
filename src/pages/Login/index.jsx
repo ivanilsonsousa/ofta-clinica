@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import Notification from "../../components/Notification";
 
 import { Context } from "../../Context/AuthContext";
 
@@ -10,6 +11,7 @@ import "./styles.css";
 
 function Login() {
   const { handleLogin } = useContext(Context);
+  const [not, setNot] = useState({});
   const [user, setUser] = useState("");
   const [password, setPass] = useState("");
   const [load, setLoad] = useState(false);
@@ -20,7 +22,16 @@ function Login() {
     if (!user || !password) return;
     setLoad(true);
 
-    await handleLogin({ user, password });
+    const response = await handleLogin({ user, password });
+    console.log(response);
+    if (response.code !== 200) {
+      setNot({
+        description: response.message,
+        type: response.type,
+        open: true,
+      });
+    }
+
     setLoad(false);
   }
 
@@ -70,6 +81,12 @@ function Login() {
           </div>
         </div>
       </div>
+      <Notification
+        description={not.description}
+        type={not.type}
+        open={not.open}
+        exit={setNot}
+      />
     </>
   );
 }

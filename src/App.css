@@ -1,32 +1,15 @@
 :root {
   --color-default: #5db6a0;
+  --color-primary: #6dc4ae;
+  --color-secondary: #41665d;
+  --color-tertiary: #699489;
+  --color-quaternary: #5e837a;
 }
 * {
   font-family: "Baloo Paaji 2", cursive;
 }
 .content-body {
   min-height: 100vh;
-}
-.navbar {
-  background: var(--color-default);
-  height: 56px;
-}
-.getout > button {
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  color: white;
-}
-
-.navbar span {
-  color: white;
-}
-.nav-link {
-  color: #444;
-}
-.nav-link:hover {
-  color: #333;
 }
 .alig-center {
   display: flex;
