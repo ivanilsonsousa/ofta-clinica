@@ -18,7 +18,7 @@ function Header(props) {
         <button onClick={() => setSideBar(!sideBar)}>
           <i
             className={`fas ${
-              !sideBar ? "fa-align-left" : "fa-arrow-right rotate"
+              !sideBar ? "fa-align-left" : "fa-arrow-left rotate"
             }`}
           ></i>
           {/* <i class="fas fa-arrow-left"></i> */}

@@ -1,9 +1,9 @@
 :root {
   --color-default: #5db6a0;
   --color-primary: #6dc4ae;
-  --color-secondary: #41665d;
-  --color-tertiary: #699489;
-  --color-quaternary: #5e837a;
+  --color-secondary: #4c9683;
+  --color-tertiary: #d0ced4;
+  --color-quaternary: lightgray;
 }
 * {
   font-family: "Baloo Paaji 2", cursive;

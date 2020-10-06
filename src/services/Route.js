@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
+import Loading from '../components/Loading';
 
 import { Context } from '../Context/AuthContext';
 function RouteWrapper({
@@ -9,7 +10,7 @@ function RouteWrapper({
   const { loading, authenticated } = useContext(Context);
 
   if (loading && (isPrivate || authTo)) {
-    return <span>Loading...</span>;
+    return <Loading />;
   }
 
   if (authenticated && authTo) return <Redirect to={authTo} />;

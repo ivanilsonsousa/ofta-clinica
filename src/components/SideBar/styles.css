@@ -1,7 +1,7 @@
 #sidebar {
   width: 250px;
   min-width: 250px;
-  background: var(--color-default);
+  background: var(--color-tertiary);
   color: #fff;
   transition: all 0.3s;
 }
